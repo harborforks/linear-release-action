@@ -19,7 +19,7 @@
 </p>
 
 > [!IMPORTANT]
-> Linear Release is in **closed beta**. Contact [Linear support](https://linear.app/contact) or your account manager to request access. APIs and commands may change.
+> Linear Release is in **public beta**. Contact [Linear support](https://linear.app/contact) or your account manager to request access. APIs and commands may change.
 
 ## Overview
 
@@ -45,17 +45,17 @@ steps:
 
 ## Inputs
 
-| Input           | Required | Default  | Description                                                                |
-| --------------- | -------- | -------- | -------------------------------------------------------------------------- |
-| `access_key`    | Yes      |          | Linear pipeline access key for authentication                              |
-| `command`       | No       | `sync`   | Command to run: `sync`, `complete`, or `update`                            |
+| Input           | Required | Default  | Description                                                                                                                                                                                                                   |
+| --------------- | -------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `access_key`    | Yes      |          | Linear pipeline access key for authentication                                                                                                                                                                                 |
+| `command`       | No       | `sync`   | Command to run: `sync`, `complete`, or `update`                                                                                                                                                                               |
 | `name`          | No       |          | Custom release name for `sync`. Continuous pipelines: used on create. Scheduled pipelines: used only when `sync` creates a release; existing release names are preserved. Ignored (with warning) for `complete` and `update`. |
-| `version`       | No       |          | Release version identifier (alias: `release_version`)                      |
-| `stage`         | No       |          | Deployment stage such as `staging` or `production` (required for `update`) |
-| `include_paths` | No       |          | Filter commits by file paths (comma-separated globs for monorepos)         |
-| `log_level`     | No       |          | Log verbosity: `quiet` or `verbose`. Omit for default output.              |
-| `timeout`       | No       | `60`     | Maximum time in seconds to wait for the command to complete                |
-| `cli_version`   | No       | `latest` | Linear Release CLI version tag to install                                  |
+| `version`       | No       |          | Release version identifier (alias: `release_version`)                                                                                                                                                                         |
+| `stage`         | No       |          | Deployment stage such as `staging` or `production` (required for `update`)                                                                                                                                                    |
+| `include_paths` | No       |          | Filter commits by file paths (comma-separated globs for monorepos)                                                                                                                                                            |
+| `log_level`     | No       |          | Log verbosity: `quiet` or `verbose`. Omit for default output.                                                                                                                                                                 |
+| `timeout`       | No       | `60`     | Maximum time in seconds to wait for the command to complete                                                                                                                                                                   |
+| `cli_version`   | No       | `latest` | Linear Release CLI version tag to install                                                                                                                                                                                     |
 
 `cli_version` defaults to `latest`, so the action automatically uses the newest CLI release. For reproducible builds, pin an exact tag (for example, `v0.5.0`). If stability is more important than automatic updates, prefer a pinned version.
 
@@ -125,11 +125,11 @@ Updates the deployment stage of the current release. Only applicable to schedule
 
 ### Command targeting
 
-| Command | With `version` | Without `version` |
-| ------- | -------------- | ----------------- |
-| `sync` | Targets matching version or creates that version | Continuous pipelines create a release with short SHA name/version. Scheduled pipelines use current started/planned flow. |
-| `update` | Updates that exact release version | Updates latest started release, or latest planned release if no started release exists |
-| `complete` | Completes that exact release version | Completes latest started release |
+| Command    | With `version`                                   | Without `version`                                                                                                        |
+| ---------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `sync`     | Targets matching version or creates that version | Continuous pipelines create a release with short SHA name/version. Scheduled pipelines use current started/planned flow. |
+| `update`   | Updates that exact release version               | Updates latest started release, or latest planned release if no started release exists                                   |
+| `complete` | Completes that exact release version             | Completes latest started release                                                                                         |
 
 For scheduled pipelines, prefer always passing `version` in CI, especially when releases overlap.
 
